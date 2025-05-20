@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manuel Rodríguez Calderón - Desarrollador Web</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body data-bs-theme="light"> <div id="preloader">
+        <div class="loader-ring">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+        <p>Cargando...</p>
+    </div>
+
+    <button id="darkModeToggle" class="dark-mode-toggle">
+        <i class="fas fa-moon"></i>
+        <i class="fas fa-sun" style="display: none;"></i>
+    </button>
+
+    <a href="https://wa.me/7228396472" class="whatsapp-float" target="_blank" data-aos="fade-left" data-aos-delay="1500">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <nav class="navbar navbar-expand-lg fixed-top navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="#">Manuel Rodríguez</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="#inicio">Inicio</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#sobre-mi">Sobre Mí</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#habilidades">Habilidades</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#proyectos">Proyectos</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#testimonios">Testimonios</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contacto">Contacto</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <section id="inicio" class="d-flex align-items-center justify-content-center text-center">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <img src="img/avatar.png" alt="Manuel Rodríguez" class="avatar-img mb-4" data-aos="zoom-in" data-aos-duration="1000">
+                    <h1 class="display-3" data-aos="fade-up" data-aos-delay="300">Manuel Rodríguez Calderón</h1>
+                    <p class="lead" data-aos="fade-up" data-aos-delay="700">Soy <span id="typed-text"></span></p>
+                    <div data-aos="fade-up" data-aos-delay="900">
+                        <a href="#proyectos" class="btn btn-cta btn-cta-primary me-2">Ver Proyectos</a>
+                        <a href="docs/ManuelRodriguezCV.pdf" download="Manuel_Rodriguez_Calderon_CV.pdf" class="btn btn-cta btn-cta-secondary">Descargar CV</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="sobre-mi" class="py-5">
+        <div class="container">
+            <h2 class="section-title text-center mb-5" data-aos="fade-up">Sobre Mí</h2>
+            <div class="row align-items-center">
+                <div class="col-lg-4 text-center" data-aos="fade-right" data-aos-duration="1000">
+                    <img src="img/foto_profesional.jpg" alt="Foto de Manuel Rodríguez" class="img-fluid rounded-circle shadow-lg about-me-img mb-4">
+                </div>
+                <div class="col-lg-8" data-aos="fade-left" data-aos-duration="1000" data-aos-delay="200">
+                    <div class="about-card">
+                        <h3>¡Hola! Soy Manuel Rodríguez Calderón</h3>
+                        <p>Tengo 19 años y vivo en Lerma, Estado de México. Soy Técnico en Programación y actualmente estoy cursando una Ingeniería en Desarrollo de Software Multiplataforma. Me apasiona crear soluciones web modernas, atractivas y funcionales.</p>
+                        <p>Busco constantemente aprender nuevas tecnologías y mejorar mis habilidades para ofrecer productos de alta calidad que cumplan y superen las expectativas.</p>
+                    </div>
+                    <div class="about-card mt-4">
+                        <h4>Habilidades Blandas</h4>
+                        <ul>
+                            <li><i class="fas fa-users me-2"></i>Trabajo en equipo</li>
+                            <li><i class="fas fa-clock me-2"></i>Entrega de proyectos en tiempo y forma</li>
+                            <li><i class="fas fa-lightbulb me-2"></i>Modernidad y atracción visual en el diseño</li>
+                            <li><i class="fas fa-comments me-2"></i>Comunicación efectiva</li>
+                        </ul>
+                    </div>
+                    <a href="docs/ManuelRodriguezCV.pdf" download="Manuel_Rodriguez_Calderon_CV.pdf" class="btn btn-cta btn-cta-secondary mt-4" data-aos="zoom-in" data-aos-delay="400">Descargar CV</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="habilidades" class="py-5 bg-light-gradient">
+        <div class="container">
+            <h2 class="section-title text-center mb-5" data-aos="fade-up">Habilidades Técnicas</h2>
+            <div class="row g-4 justify-content-center">
+                <div class="col-md-4 col-lg-3" data-aos="flip-left" data-aos-delay="100">
+                    <div class="skill-card html5-card">
+                        <div class="skill-icon"><i class="fab fa-html5"></i></div>
+                        <h5 class="skill-name">HTML5</h5>
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" style="width: 95%;" aria-valuenow="95" aria-valuemin="0" aria-valuemax="100">95%</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-lg-3" data-aos="flip-left" data-aos-delay="200">
+                    <div class="skill-card css3-card">
+                        <div class="skill-icon"><i class="fab fa-css3-alt"></i></div>
+                        <h5 class="skill-name">CSS3</h5>
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" style="width: 90%;" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100">90%</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-lg-3" data-aos="flip-left" data-aos-delay="300">
+                    <div class="skill-card js-card">
+                        <div class="skill-icon"><i class="fab fa-js-square"></i></div>
+                        <h5 class="skill-name">JavaScript</h5>
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" style="width: 85%;" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100">85%</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-lg-3" data-aos="flip-left" data-aos-delay="400">
+                    <div class="skill-card python-card">
+                        <div class="skill-icon"><i class="fab fa-python"></i></div>
+                        <h5 class="skill-name">Python</h5>
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" style="width: 75%;" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">75%</div>
+                        </div>
+                    </div>
+                </div>
+                 <div class="col-md-4 col-lg-3" data-aos="flip-left" data-aos-delay="500">
+                    <div class="skill-card cpp-card">
+                        <div class="skill-icon"><i class="fas fa-file-code"></i></div>
+                        <h5 class="skill-name">C++</h5>
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" style="width: 70%;" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100">70%</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-lg-3" data-aos="flip-left" data-aos-delay="600">
+                    <div class="skill-card java-card">
+                        <div class="skill-icon"><i class="fab fa-java"></i></div>
+                        <h5 class="skill-name">Java</h5>
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" style="width: 80%;" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100">80%</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-lg-3" data-aos="flip-left" data-aos-delay="700">
+                    <div class="skill-card react-card">
+                        <div class="skill-icon"><i class="fab fa-react"></i></div>
+                        <h5 class="skill-name">React</h5>
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" style="width: 70%;" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100">70%</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-lg-3" data-aos="flip-left" data-aos-delay="800">
+                    <div class="skill-card nodejs-card">
+                        <div class="skill-icon"><i class="fab fa-node-js"></i></div>
+                        <h5 class="skill-name">Node.js</h5>
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" style="width: 65%;" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100">65%</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-lg-3" data-aos="flip-left" data-aos-delay="900">
+                    <div class="skill-card php-card">
+                        <div class="skill-icon"><i class="fab fa-php"></i></div>
+                        <h5 class="skill-name">PHP</h5>
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" style="width: 70%;" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100">70%</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-lg-3" data-aos="flip-left" data-aos-delay="1000">
+                    <div class="skill-card mysql-card">
+                         <div class="skill-icon"><i class="fas fa-database"></i></div>
+                        <h5 class="skill-name">MySQL</h5>
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" style="width: 85%;" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100">85%</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-lg-3" data-aos="flip-left" data-aos-delay="1100">
+                    <div class="skill-card sql-card">
+                        <div class="skill-icon"><i class="fas fa-database"></i></div>
+                        <h5 class="skill-name">SQL Consola</h5>
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" style="width: 80%;" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100">80%</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-lg-3" data-aos="flip-left" data-aos-delay="1200">
+                    <div class="skill-card github-card">
+                        <div class="skill-icon"><i class="fab fa-github"></i></div>
+                        <h5 class="skill-name">GitHub</h5>
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" style="width: 90%;" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100">90%</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-lg-3" data-aos="flip-left" data-aos-delay="1200">
+                    <div class="skill-card github-card">
+                        <div class="skill-icon"><i class="fab fa-bootstrap"></i></div>
+                        <h5 class="skill-name">Bootstrap 5</h5>
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" style="width: 90%;" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100">90%</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="proyectos" class="py-5">
+        <div class="container">
+            <h2 class="section-title text-center mb-5" data-aos="fade-up">Proyectos Destacados</h2>
+            <div class="row g-4">
+                <div class="col-md-6 col-lg-4" data-aos="zoom-in-up">
+                    <div class="project-card">
+                        <img src="img/proyecto1.jpg" class="project-img" alt="Nombre del Proyecto 1">
+                        <div class="project-info">
+                            <h5 class="project-title">Nombre del Proyecto 1</h5>
+                            <p class="project-description">Breve descripción del proyecto, destacando su objetivo y funcionalidades principales.</p>
+                            <p class="project-tech"><strong>Tecnologías:</strong> HTML, CSS, JavaScript, React</p>
+                            <a href="#" class="btn btn-sm btn-outline-light me-2" target="_blank">Ver Demo</a>
+                            <a href="#" class="btn btn-sm btn-outline-light" target="_blank"><i class="fab fa-github"></i> Repositorio</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4" data-aos="zoom-in-up" data-aos-delay="200">
+                    <div class="project-card">
+                        <img src="img/proyecto2.jpg" class="project-img" alt="Nombre del Proyecto 2">
+                        <div class="project-info">
+                            <h5 class="project-title">Nombre del Proyecto 2</h5>
+                            <p class="project-description">Descripción concisa de este otro proyecto interesante y las soluciones que aporta.</p>
+                            <p class="project-tech"><strong>Tecnologías:</strong> Node.js, Express, MongoDB, Bootstrap</p>
+                            <a href="#" class="btn btn-sm btn-outline-light me-2" target="_blank">Ver Demo</a>
+                            <a href="#" class="btn btn-sm btn-outline-light" target="_blank"><i class="fab fa-github"></i> Repositorio</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4" data-aos="zoom-in-up" data-aos-delay="400">
+                    <div class="project-card">
+                        <img src="img/proyecto3.jpg" class="project-img" alt="Nombre del Proyecto 3">
+                        <div class="project-info">
+                            <h5 class="project-title">Nombre del Proyecto 3</h5>
+                            <p class="project-description">Otro ejemplo de trabajo que demuestra tus habilidades en desarrollo y diseño.</p>
+                            <p class="project-tech"><strong>Tecnologías:</strong> Python, Django, PostgreSQL</p>
+                            <a href="#" class="btn btn-sm btn-outline-light me-2" target="_blank">Ver Demo</a>
+                            <a href="#" class="btn btn-sm btn-outline-light" target="_blank"><i class="fab fa-github"></i> Repositorio</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="testimonios" class="py-5 bg-light-gradient">
+        <div class="container">
+            <h2 class="section-title text-center mb-5" data-aos="fade-up">Testimonios</h2>
+            <div id="carouselTestimonios" class="carousel slide" data-bs-ride="carousel" data-aos="fade-in" data-aos-duration="1000">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <div class="testimonial-card">
+                            <img src="img/testimonio1.jpg" alt="Persona 1" class="testimonial-img">
+                            <p class="testimonial-text">"Manuel es un desarrollador muy talentoso y comprometido. Su atención al detalle y la calidad de su trabajo son excepcionales."</p>
+                            <h5 class="testimonial-author">- Nombre Persona 1</h5>
+                            <p class="testimonial-role">Cargo/Empresa</p>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="testimonial-card">
+                            <img src="img/testimonio2.jpg" alt="Persona 2" class="testimonial-img">
+                            <p class="testimonial-text">"Trabajar con Manuel fue una gran experiencia. Siempre proactivo y con excelentes ideas para mejorar el proyecto."</p>
+                            <h5 class="testimonial-author">- Nombre Persona 2</h5>
+                            <p class="testimonial-role">Cargo/Empresa</p>
+                        </div>
+                    </div>
+                    </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselTestimonios" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Anterior</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselTestimonios" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Siguiente</span>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <section id="contacto" class="py-5">
+        <div class="container">
+            <h2 class="section-title text-center mb-5" data-aos="fade-up">Contacto</h2>
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    <form id="contactForm" data-aos="fade-up" data-aos-delay="200">
+                        <div class="row g-3">
+                            <div class="col-md-6 mb-3">
+                                <label for="nombre" class="form-label">Nombre Completo</label>
+                                <input type="text" class="form-control" id="nombre" name="nombre" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="email" class="form-label">Correo Electrónico</label>
+                                <input type="email" class="form-control" id="email" name="email" required>
+                            </div>
+                            <div class="col-12 mb-3">
+                                <label for="asunto" class="form-label">Asunto</label>
+                                <input type="text" class="form-control" id="asunto" name="asunto" required>
+                            </div>
+                            <div class="col-12 mb-3">
+                                <label for="mensaje" class="form-label">Mensaje</label>
+                                <textarea class="form-control" id="mensaje" name="mensaje" rows="5" required></textarea>
+                            </div>
+                            <div class="col-12 text-center">
+                                <button type="submit" class="btn btn-cta btn-cta-primary">Enviar Mensaje</button>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="contact-social-icons text-center mt-5" data-aos="fade-up" data-aos-delay="400">
+                        <p>También puedes encontrarme en:</p>
+                        <a href="mailto:manuelrodriguezcalderon10@gmail.com" class="social-icon" title="Correo Electrónico"><i class="fas fa-envelope"></i></a>
+                        <a href="https://github.com/ManuDev21" class="social-icon" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+                        <a href="https://www.facebook.com/manu.rodriguez.879507" class="social-icon" target="_blank" title="Facebook"><i class="fab fa-facebook"></i></a>
+                        <a href="https://www.instagram.com/manu.rodri2?igsh=MW9qY3puY24zM2NpMA==" class="social-icon" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="text-center py-4">
+        <div class="container">
+            <p>&copy; <span id="currentYear"></span> Manuel Rodríguez Calderón. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+    <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script src="js/script.js"></script>
+
+</body>
+</html>

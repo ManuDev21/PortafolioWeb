@@ -1,0 +1,802 @@
+/*--------------------------------------------------------------
+# General
+--------------------------------------------------------------*/
+:root {
+    --primary-color: #007bff; /* Azul primario, puedes cambiarlo */
+    --secondary-color: #00c6ff; /* Turquesa */
+    --gradient-start: #0d95e8; /* Azul claro para gradientes */
+    --gradient-end: #03f4f4;   /* Turquesa para gradientes */
+    --text-color-light: #f8f9fa;
+    --text-color-dark: #343a40;
+    --bg-light: #ffffff;
+    --bg-dark: #1a1a2e; /* Un azul oscuro para el modo noche */
+    --card-bg-light: #ffffff;
+    --card-bg-dark: #1f243a;
+    --navbar-bg-light: rgba(25, 96, 162, 0.9); /* Azul con transparencia para modo claro */
+    --navbar-bg-dark: rgba(15, 23, 42, 0.95);  /* Más oscuro para modo noche */
+    --shadow-light: 0 10px 30px rgba(0, 0, 0, 0.1);
+    --shadow-dark: 0 10px 30px rgba(0, 0, 0, 0.3);
+    --border-light: #dee2e6;
+    --border-dark: #343a40;
+}
+
+body {
+    font-family: 'Poppins', sans-serif; /* Considera importar esta fuente o elegir una similar */
+    color: var(--text-color-dark);
+    background-color: var(--bg-light);
+    line-height: 1.7;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    overflow-x: hidden; /* Prevenir scroll horizontal por animaciones */
+}
+
+body[data-bs-theme="dark"] {
+    --text-color-dark: var(--text-color-light); /* Invertir para modo oscuro */
+    --bg-light: var(--bg-dark);
+    --card-bg-light: var(--card-bg-dark);
+    --shadow-light: var(--shadow-dark);
+    --border-light: var(--border-dark);
+    --primary-color: var(--secondary-color); /* Cambiar el primario en modo oscuro para contraste */
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 600;
+    color: var(--primary-color);
+}
+body[data-bs-theme="dark"] h1,
+body[data-bs-theme="dark"] h2,
+body[data-bs-theme="dark"] h3,
+body[data-bs-theme="dark"] h4,
+body[data-bs-theme="dark"] h5,
+body[data-bs-theme="dark"] h6 {
+    color: var(--secondary-color); /* O un blanco brillante */
+}
+
+
+section {
+    padding: 80px 0;
+    overflow: hidden; /* Para que las animaciones de AOS no causen scrollbars */
+}
+
+.section-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 40px;
+    position: relative;
+    padding-bottom: 15px;
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    display: block;
+    width: 60px;
+    height: 3px;
+    background: linear-gradient(90deg, var(--gradient-start), var(--gradient-end));
+    bottom: 0;
+    left: calc(50% - 30px);
+    border-radius: 3px;
+}
+
+/*--------------------------------------------------------------
+# Preloader
+--------------------------------------------------------------*/
+#preloader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 9999;
+    overflow: hidden;
+    background: var(--bg-light);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    opacity: 1;
+    transition: opacity 0.5s ease-out;
+}
+#preloader.loaded {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.loader-ring {
+    display: inline-block;
+    position: relative;
+    width: 80px;
+    height: 80px;
+    margin-bottom: 20px;
+}
+.loader-ring div {
+    box-sizing: border-box;
+    display: block;
+    position: absolute;
+    width: 64px;
+    height: 64px;
+    margin: 8px;
+    border: 8px solid var(--primary-color);
+    border-radius: 50%;
+    animation: loader-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+    border-color: var(--primary-color) transparent transparent transparent;
+}
+.loader-ring div:nth-child(1) { animation-delay: -0.45s; }
+.loader-ring div:nth-child(2) { animation-delay: -0.3s; }
+.loader-ring div:nth-child(3) { animation-delay: -0.15s; }
+@keyframes loader-ring {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+#preloader p {
+    font-size: 1.2rem;
+    color: var(--primary-color);
+}
+
+/*--------------------------------------------------------------
+# Dark Mode Toggle
+--------------------------------------------------------------*/
+.dark-mode-toggle {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1031; /* Encima del navbar */
+    background: var(--card-bg-light);
+    color: var(--text-color-dark);
+    border: 1px solid var(--border-light);
+    border-radius: 50%;
+    width: 45px;
+    height: 45px;
+    font-size: 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: var(--shadow-light);
+    transition: background-color 0.3s, color 0.3s, transform 0.2s;
+}
+.dark-mode-toggle:hover {
+    transform: scale(1.1);
+}
+body[data-bs-theme="dark"] .dark-mode-toggle {
+    background: var(--card-bg-dark);
+    color: var(--text-color-light);
+    border-color: var(--border-dark);
+}
+
+/*--------------------------------------------------------------
+# Navbar
+--------------------------------------------------------------*/
+.navbar {
+    padding: 15px 0;
+    background-color: var(--navbar-bg-light);
+    box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+    transition: background-color 0.3s ease-in-out, padding 0.3s ease-in-out;
+}
+body[data-bs-theme="dark"] .navbar {
+    background-color: var(--navbar-bg-dark);
+}
+
+.navbar.scrolled {
+    padding: 10px 0;
+    background-color: var(--navbar-bg-light); /* Un poco más opaco al hacer scroll */
+}
+body[data-bs-theme="dark"] .navbar.scrolled {
+    background-color: var(--navbar-bg-dark);
+}
+
+.navbar-brand {
+    font-weight: 700;
+    font-size: 1.8rem;
+    color: #fff !important; /* Siempre blanco para el brand */
+    letter-spacing: 1px;
+}
+.nav-link {
+    color: rgba(255, 255, 255, 0.8) !important;
+    margin: 0 10px;
+    font-weight: 500;
+    transition: color 0.3s, transform 0.2s;
+    position: relative;
+}
+.nav-link:hover, .nav-link.active {
+    color: #fff !important;
+    transform: translateY(-2px);
+}
+.nav-link::before {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -5px;
+    left: 50%;
+    background: linear-gradient(90deg, var(--gradient-start), var(--gradient-end));
+    transition: width 0.3s ease-out, left 0.3s ease-out;
+    border-radius: 2px;
+}
+.nav-link:hover::before, .nav-link.active::before {
+    width: 100%;
+    left: 0;
+}
+
+/*--------------------------------------------------------------
+# Botones CTA (Call to Action) - Efecto Gelatina y 3D Sutil
+--------------------------------------------------------------*/
+.btn-cta {
+    padding: 12px 30px;
+    border-radius: 50px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    transform-style: preserve-3d; /* Necesario para perspectiva */
+    z-index: 1;
+    border: none;
+}
+
+.btn-cta::before { /* Sombra sutil para efecto 3D */
+    content: '';
+    position: absolute;
+    bottom: -4px; /* Desplazamiento de la sombra */
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: inherit; /* Hereda el fondo del botón */
+    border-radius: inherit;
+    transform: translateZ(-1px) translateY(2px); /* Mueve hacia atrás y abajo */
+    z-index: -1;
+    opacity: 0.5;
+    filter: blur(2px);
+}
+
+.btn-cta-primary {
+    background: linear-gradient(45deg, var(--gradient-start), var(--gradient-end));
+    color: var(--text-color-light);
+    box-shadow: 0 4px 15px rgba(0, 198, 255, 0.4);
+}
+.btn-cta-primary:hover {
+    color: var(--text-color-light);
+    transform: translateY(-3px) perspective(1000px) rotateX(5deg) scale(1.05); /* Efecto 3D hover */
+    box-shadow: 0 6px 20px rgba(0, 198, 255, 0.6);
+    animation: gelatin 0.7s 1;
+}
+
+.btn-cta-secondary {
+    background-color: transparent;
+    color: var(--primary-color);
+    border: 2px solid var(--primary-color);
+}
+body[data-bs-theme="dark"] .btn-cta-secondary {
+    color: var(--secondary-color);
+    border-color: var(--secondary-color);
+}
+.btn-cta-secondary:hover {
+    background-color: var(--primary-color);
+    color: var(--text-color-light);
+    transform: translateY(-3px) perspective(1000px) rotateX(5deg) scale(1.05);
+    animation: gelatin 0.7s 1;
+}
+body[data-bs-theme="dark"] .btn-cta-secondary:hover {
+    background-color: var(--secondary-color);
+    color: var(--text-color-dark); /* O un color oscuro que contraste con turquesa */
+}
+
+/* Animación Gelatina */
+@keyframes gelatin {
+  0%, 100% { transform: scale(1, 1) translateY(-3px) perspective(1000px) rotateX(5deg); }
+  25% { transform: scale(0.9, 1.1) translateY(-3px) perspective(1000px) rotateX(5deg); }
+  50% { transform: scale(1.1, 0.9) translateY(-3px) perspective(1000px) rotateX(5deg); }
+  75% { transform: scale(0.95, 1.05) translateY(-3px) perspective(1000px) rotateX(5deg); }
+}
+
+
+/*--------------------------------------------------------------
+# Inicio
+--------------------------------------------------------------*/
+#inicio {
+    height: 100vh;
+    min-height: 600px;
+    background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
+    color: var(--text-color-light);
+    position: relative; /* Para elementos con opacidad inicial */
+}
+#inicio::before { /* Overlay sutil */
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.1); /* Oscurece ligeramente el fondo */
+    z-index: 0;
+}
+#inicio .container {
+    position: relative; /* Para que el contenido esté sobre el overlay */
+    z-index: 1;
+}
+
+#inicio .avatar-img {
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    border: 5px solid rgba(255,255,255,0.5);
+    box-shadow: 0 0 30px rgba(0,0,0,0.2);
+    opacity: 0; /* Inicialmente invisible para animación JS */
+    transform: scale(0.5); /* Inicialmente pequeño */
+}
+#inicio h1 {
+    font-size: 3.5rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+    color: var(--text-color-light);
+    opacity: 0;
+    transform: translateY(30px);
+}
+#inicio p.lead {
+    font-size: 1.5rem;
+    margin-bottom: 30px;
+    color: rgba(255,255,255,0.9);
+    opacity: 0;
+    transform: translateY(30px);
+}
+#typed-text {
+    font-weight: bold;
+    border-bottom: 3px solid var(--secondary-color); /* O un color que destaque */
+}
+body[data-bs-theme="dark"] #typed-text {
+    border-bottom: 3px solid var(--primary-color);
+}
+
+#inicio div[data-aos="fade-up"] { /* Para los botones */
+    opacity: 0;
+    transform: translateY(30px);
+}
+/* Clases para animación de entrada con JS */
+.fade-in-element {
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+.fade-in-element.visible {
+    opacity: 1 !important;
+    transform: translateY(0) scale(1) !important;
+}
+
+
+/*--------------------------------------------------------------
+# Sobre Mí
+--------------------------------------------------------------*/
+.about-me-img {
+    width: 250px;
+    height: 250px;
+    object-fit: cover;
+    border: 5px solid var(--gradient-start);
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+.about-me-img:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 30px rgba(0, 123, 255, 0.3);
+}
+
+.about-card {
+    background-color: var(--card-bg-light);
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: var(--shadow-light);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.about-card:hover {
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+}
+body[data-bs-theme="dark"] .about-card:hover {
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.35);
+}
+.about-card h3 {
+    color: var(--primary-color);
+    margin-bottom: 15px;
+}
+.about-card h4 {
+    color: var(--primary-color);
+    margin-top: 20px;
+    margin-bottom: 10px;
+    font-size: 1.2rem;
+}
+.about-card ul {
+    list-style: none;
+    padding-left: 0;
+}
+.about-card ul li {
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+}
+.about-card ul li i {
+    color: var(--gradient-end); /* Turquesa para iconos */
+    margin-right: 10px;
+    font-size: 1.1rem;
+}
+body[data-bs-theme="dark"] .about-card ul li i {
+    color: var(--primary-color);
+}
+
+/*--------------------------------------------------------------
+# Habilidades
+--------------------------------------------------------------*/
+.bg-light-gradient {
+    background: linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(230, 245, 255, 0.5) 100%); /* Gradiente sutil */
+}
+body[data-bs-theme="dark"] .bg-light-gradient {
+    background: linear-gradient(to bottom, rgba(26,26,46,0) 0%, rgba(31,36,58, 0.7) 100%);
+}
+
+.skill-card {
+    background-color: var(--card-bg-light);
+    padding: 25px;
+    text-align: center;
+    border-radius: 10px;
+    box-shadow: var(--shadow-light);
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease; /* Efecto 3D rotate */
+    transform-style: preserve-3d;
+}
+.skill-card:hover {
+    transform: rotateY(15deg) rotateX(5deg) scale(1.05);
+    box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+}
+body[data-bs-theme="dark"] .skill-card:hover {
+    box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+}
+
+.skill-icon {
+    font-size: 3.5rem;
+    margin-bottom: 15px;
+    transition: transform 0.3s ease;
+}
+.skill-card:hover .skill-icon {
+    transform: scale(1.1) translateY(-5px);
+}
+
+.skill-name {
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+    color: var(--text-color-dark);
+}
+body[data-bs-theme="dark"] .skill-name {
+    color: var(--text-color-light);
+}
+
+.progress {
+    height: 17px;
+    border-radius: 5px;
+    background-color: #e9ecef;
+}
+body[data-bs-theme="dark"] .progress {
+    background-color: #343a40;
+}
+.progress-bar {
+    border-radius: 5px;
+    font-size: 0.7rem; /* Oculta el porcentaje si es muy pequeño */
+    line-height: 10px; /* Centra el texto si se muestra */
+    color: white;
+    text-align: center;
+}
+
+/* Colores específicos para cada habilidad (iconos y barras de progreso) */
+.html5-card .skill-icon, .html5-card .progress-bar { color: #F0DB4F; }
+.css3-card .skill-icon, .css3-card .progress-bar { color: #F0DB4F; }
+.js-card .skill-icon, .js-card .progress-bar { color: #F0DB4F; }
+.python-card .skill-icon, .python-card .progress-bar { color: #F0DB4F; } /* Amarillo: #FFD43B */
+.cpp-card .skill-icon, .cpp-card .progress-bar { color: #F0DB4F;  } /* Icono genérico por ahora */
+.java-card .skill-icon, .java-card .progress-bar { color: #F0DB4F; } /* Naranja/Rojo: #e76f00 */
+.react-card .skill-icon, .react-card .progress-bar { color: #F0DB4F; }
+.nodejs-card .skill-icon, .nodejs-card .progress-bar { color: #F0DB4F; }
+.php-card .skill-icon, .php-card .progress-bar { color: #F0DB4F; }
+.mysql-card .skill-icon, .mysql-card .progress-bar { color: #F0DB4F; } /* Icono genérico */
+.sql-card .skill-icon, .sql-card .progress-bar { color: #F0DB4F;} /* Icono genérico */
+.github-card .skill-icon, .github-card .progress-bar { color: #F0DB4F; }
+body[data-bs-theme="dark"] .github-card .skill-icon,
+body[data-bs-theme="dark"] .github-card .progress-bar {
+    color: #F0DB4F; ;
+}
+
+
+/* Para que el texto del icono tenga color y no el fondo del div .skill-icon */
+.html5-card .skill-icon { color: #E44D26; }
+.css3-card .skill-icon { color: #1572B6; }
+.js-card .skill-icon { color: #F0DB4F; }
+.python-card .skill-icon { color: #306998; }
+.cpp-card .skill-icon { color: #00599C; }
+.java-card .skill-icon { color: #f89820; }
+.react-card .skill-icon { color: #61DAFB; }
+.nodejs-card .skill-icon { color: #3C873A; }
+.php-card .skill-icon { color: #777BB4; }
+.mysql-card .skill-icon { color: #00758F; }
+.sql-card .skill-icon { color: #CF7900; }
+.github-card .skill-icon { color: #181717; }
+body[data-bs-theme="dark"] .github-card .skill-icon { color: #ffffff; }
+
+
+/*--------------------------------------------------------------
+# Proyectos
+--------------------------------------------------------------*/
+.project-card {
+    position: relative;
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: var(--shadow-light);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.project-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+}
+.project-img {
+    width: 100%;
+    height: 250px; /* Ajusta según tus imágenes */
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+.project-card:hover .project-img {
+    transform: scale(1.1);
+}
+.project-info {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.5) 70%, rgba(0,0,0,0) 100%);
+    color: var(--text-color-light);
+    padding: 20px;
+    transform: translateY(100%); /* Oculto inicialmente */
+    transition: transform 0.5s ease-out, opacity 0.5s ease-out;
+    opacity: 0;
+}
+.project-card:hover .project-info {
+    transform: translateY(0);
+    opacity: 1;
+}
+.project-title {
+    font-size: 1.4rem;
+    margin-bottom: 10px;
+    color: #fff; /* Siempre blanco para mejor lectura sobre imagen */
+}
+.project-description {
+    font-size: 0.9rem;
+    margin-bottom: 10px;
+    height: 60px; /* Limita altura y usa overflow si es necesario */
+    overflow: hidden;
+}
+.project-tech {
+    font-size: 0.8rem;
+    margin-bottom: 15px;
+    font-style: italic;
+}
+.project-info .btn-outline-light {
+    border-color: rgba(255,255,255,0.7);
+    color: rgba(255,255,255,0.9);
+}
+.project-info .btn-outline-light:hover {
+    background-color: rgba(255,255,255,0.2);
+    color: #fff;
+}
+
+/*--------------------------------------------------------------
+# Testimonios
+--------------------------------------------------------------*/
+.testimonial-card {
+    background-color: var(--card-bg-light);
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: var(--shadow-light);
+    text-align: center;
+    margin: 0 15px; /* Espacio para el carousel */
+}
+.testimonial-img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin: 0 auto 20px auto;
+    border: 3px solid var(--gradient-start);
+}
+.testimonial-text {
+    font-style: italic;
+    font-size: 1.1rem;
+    margin-bottom: 20px;
+    color: var(--text-color-dark);
+}
+body[data-bs-theme="dark"] .testimonial-text {
+    color: var(--text-color-light);
+}
+.testimonial-author {
+    font-weight: 600;
+    color: var(--primary-color);
+}
+body[data-bs-theme="dark"] .testimonial-author {
+    color: var(--secondary-color);
+}
+.testimonial-role {
+    font-size: 0.9rem;
+    color: #777;
+}
+body[data-bs-theme="dark"] .testimonial-role {
+    color: #aaa;
+}
+
+/* Estilos para controles del carousel */
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    background-color: var(--primary-color); /* Color de fondo de los iconos */
+    border-radius: 50%;
+    padding: 15px; /* Hace el fondo más grande que el icono SVG */
+    background-size: 50% 50%; /* Tamaño del icono SVG interno */
+}
+body[data-bs-theme="dark"] .carousel-control-prev-icon,
+body[data-bs-theme="dark"] .carousel-control-next-icon {
+    background-color: var(--secondary-color);
+}
+.carousel-control-prev, .carousel-control-next {
+    width: 5%; /* Ancho de la zona clickeable */
+}
+
+/*--------------------------------------------------------------
+# Contacto
+--------------------------------------------------------------*/
+#contactForm .form-control {
+    border-radius: 8px;
+    padding: 12px 15px;
+    border: 1px solid var(--border-light);
+    background-color: var(--card-bg-light); /* Fondo del input */
+    color: var(--text-color-dark); /* Color del texto del input */
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+#contactForm .form-control:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
+    background-color: var(--card-bg-light);
+    color: var(--text-color-dark);
+}
+#contactForm .form-label {
+    font-weight: 500;
+    margin-bottom: 5px;
+    color: var(--text-color-dark);
+}
+body[data-bs-theme="dark"] #contactForm .form-control {
+    background-color: var(--card-bg-dark);
+    color: var(--text-color-light);
+    border-color: var(--border-dark);
+}
+body[data-bs-theme="dark"] #contactForm .form-control:focus {
+    border-color: var(--secondary-color);
+    box-shadow: 0 0 0 0.2rem rgba(0, 198, 255, 0.25);
+}
+body[data-bs-theme="dark"] #contactForm .form-label {
+    color: var(--text-color-light);
+}
+
+
+.contact-social-icons {
+    margin-top: 30px;
+}
+.contact-social-icons p {
+    margin-bottom: 15px;
+    font-size: 1.1rem;
+}
+.social-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: linear-gradient(45deg, var(--gradient-start), var(--gradient-end));
+    color: var(--text-color-light);
+    font-size: 1.8rem;
+    margin: 0 10px;
+    text-decoration: none;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0, 123, 255, 0.3);
+}
+.social-icon:hover {
+    transform: translateY(-5px) scale(1.1);
+    box-shadow: 0 8px 20px rgba(0, 123, 255, 0.5);
+}
+/* Colores específicos para iconos sociales si se desea, aunque el gradiente ya es llamativo */
+.social-icon.fa-whatsapp:hover { background: linear-gradient(45deg, #25D366, #128C7E); }
+.social-icon.fa-facebook:hover { background: linear-gradient(45deg, #1877F2, #3b5998); }
+.social-icon.fa-instagram:hover { background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%); }
+.social-icon.fa-github:hover { background: linear-gradient(45deg, #333, #6e5494); }
+.social-icon.fa-linkedin:hover { background: linear-gradient(45deg, #0A66C2, #0077b5); }
+.social-icon.fa-envelope:hover { background: linear-gradient(45deg, #c71610, #dd4b39); }
+
+
+/*--------------------------------------------------------------
+# Botón Flotante WhatsApp
+--------------------------------------------------------------*/
+.whatsapp-float {
+    position: fixed;
+    width: 60px;
+    height: 60px;
+    bottom: 30px;
+    right: 30px;
+    background-color: #25D366;
+    color: #FFF;
+    border-radius: 50px;
+    text-align: center;
+    font-size: 30px;
+    box-shadow: 2px 2px 10px rgba(0,0,0,0.3);
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+.whatsapp-float:hover {
+    transform: scale(1.1);
+    background-color: #128C7E;
+    color: #FFF;
+}
+
+/*--------------------------------------------------------------
+# Footer
+--------------------------------------------------------------*/
+footer {
+    background-color: #0f172a; /* Azul muy oscuro */
+    color: rgba(255,255,255,0.7);
+    padding: 20px 0;
+}
+body[data-bs-theme="dark"] footer {
+    background-color: #0a0f1a; /* Aún más oscuro o el mismo */
+}
+footer p {
+    margin: 0;
+    font-size: 0.9rem;
+}
+
+/*--------------------------------------------------------------
+# Responsive
+--------------------------------------------------------------*/
+@media (max-width: 992px) {
+    .navbar-nav {
+        background-color: var(--navbar-bg-light); /* Fondo para menú hamburguesa */
+        padding: 10px;
+        border-radius: 5px;
+        margin-top:10px;
+    }
+    body[data-bs-theme="dark"] .navbar-nav {
+        background-color: var(--navbar-bg-dark);
+    }
+    .nav-link {
+        margin: 5px 0;
+        padding: 8px 15px;
+    }
+    .nav-link::before { display: none; /* Quitar subrayado en móvil para simpleza */ }
+
+    #inicio h1 { font-size: 2.8rem; }
+    #inicio p.lead { font-size: 1.2rem; }
+    .about-me-img { margin-bottom: 30px; }
+    .skill-card { margin-bottom: 20px; }
+}
+
+@media (max-width: 768px) {
+    .section-title { font-size: 2rem; }
+    #inicio { padding-top: 100px; } /* Espacio para el navbar fijo */
+    #inicio .avatar-img { width: 150px; height: 150px; }
+    #inicio h1 { font-size: 2.2rem; }
+    #inicio p.lead { font-size: 1.1rem; }
+    .btn-cta { padding: 10px 25px; font-size: 0.9rem;}
+    .project-info { transform: translateY(0); opacity: 1; position: relative; background: var(--card-bg-dark); color: var(--text-color-light);} /* Mostrar info siempre en móvil */
+    .project-card:hover .project-img { transform: scale(1); } /* Desactivar zoom de imagen en móvil si la info es visible */
+    .testimonial-card { margin: 0; }
+    .dark-mode-toggle { top: 15px; right: 15px; width: 40px; height: 40px; font-size: 18px;}
+    .whatsapp-float { width: 50px; height: 50px; font-size: 24px; bottom: 20px; right: 20px;}
+}
+
+@media (max-width: 576px) {
+    #inicio h1 { font-size: 1.8rem; }
+    #inicio p.lead { font-size: 1rem; }
+    .social-icon { width: 40px; height: 40px; font-size: 1.5rem; margin: 0 5px;}
+}
+
+/* Transiciones y animaciones sutiles en toda la página */
+[data-aos] {
+    transition-property: transform, opacity; /* Propiedades que AOS animará */
+}
